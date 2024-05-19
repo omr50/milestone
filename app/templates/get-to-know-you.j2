@@ -1,0 +1,37 @@
+{% extends "base.j2" %}
+{% from 'macros/_header.j2' import header %}
+
+{% block script %}
+<script src="//unpkg.com/alpinejs" defer></script>
+<script src="https://unpkg.com/htmx.org"></script>
+<script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+<script defer>
+  htmx.on('htmx:beforeSend', function (evt) {
+    evt.detail.requestConfig.parameters.type = evt.detail.requestConfig.triggeringEvent.submitter.id
+  })
+</script>
+{% endblock %}
+
+
+{% block other_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Madimi+One&family=Protest+Strike&family=Sedan:ital@0;1&family=Tilt+Neon&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<div x-data="{ }" class="h-lvh">
+  {{ header(true, true) }}
+  <main 
+       hx-get="/form/state" 
+       hx-trigger="load" 
+       hx-target="#form-content" 
+       hx-swap="outerHTML" 
+       id="form-container" 
+       class="min-h-main flex justify-center items-center">
+    <div id="form-content">
+    </div>
+  </main>
+</div>
+{% endblock %}

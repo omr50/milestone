@@ -1,0 +1,55 @@
+{% extends "base.j2" %}
+{% from 'macros/_header.j2' import header %}
+
+{% block script %}
+<script src="//unpkg.com/alpinejs" defer></script>
+{% endblock %}
+
+{% block other_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Madimi+One&family=Protest+Strike&family=Sedan:ital@0;1&family=Tilt+Neon&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+{% if error %}
+<div x-data="{ showError: true }" 
+     x-show="showError"
+     x-init="setTimeout(() => showError = false, 10 * 1e3)" 
+     class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded absolute top-5 left-1/2 -translate-x-1/2 z-50"
+     x-transition:leave="transition ease-in duration-900"
+     x-transition:leave-start="transform opacity-100"
+     x-transition:leave-end="transform opacity-0 -translate-y-full">
+    <div class="flex">
+      <strong class="font-bold">Error!</strong>
+      <span class="block sm:inline ms-1">{{ error }}</span>
+      <button class="ms-4" @click="showError = false">
+          ❌
+      </button>
+    </div>
+</div>
+{% endif %}
+
+{{ header() }}
+
+<main>
+    <div class="flex flex-col min-h-title justify-center items-center">
+        <h1 class="text-8xl mb-8 font-bold font-display inline-flex animate-text-gradient bg-gradient-to-r from-orange-500 via-[#8678f9] to-red-600 bg-[200%_auto] bg-clip-text text-transparent">milestone.ai</h1>
+        <p class="text-xl font-sans font-bold shadow-glow-blue bg-bluee">
+            Your guide to success.
+        </p>
+    </div>
+
+    <div class="flex flex-col justify-center items-center min-h-get-started">
+        <a href="/get-to-know-you">
+            <button class="py-3 px-6 rounded-xl font-bold bg-[#34a3e8] hover:bg-[#275d8b] text-xl text-white transition-colors duration-200 hover:shadow-glow">get started</button>
+        </a>
+        <p class="font-sans text-center mt-4">
+            Fill out some information about your college experiences,<br>and we'll provide personalized advice!
+        </p>
+    </div>
+
+</main>
+
+{% endblock %}
